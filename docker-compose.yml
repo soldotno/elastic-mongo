@@ -1,0 +1,80 @@
+# To get ES and MongoDB do play with each other, we need a MongoDB replicaset and Elasticsearch.
+
+# Elasticsearch with rivers for mongodb
+elasticsearch:
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  image: stabenfeldt/elasticsearch-river-mongodb
+
+# MongoDB replicaset
+#
+# - From the image documentation
+# docker run --name some-app --link some-mongo:mongo -d application-that-uses-mongo
+#
+# … or via mongo
+# docker run -it --link some-mongo:mongo --rm mongo sh -c 'exec mongo "$MONGO_PORT_27017_TCP_ADDR:$MONGO_PORT_27017_TCP_PORT/test"'
+
+mongo2:
+  image: mongo:3.0
+  command:  mongod --replSet "rs0" --journal
+  ports:
+    - "27018:27017"
+
+mongo3:
+  image: mongo:3.0
+  command: mongod --replSet "rs0" --journal
+  ports:
+    - "27019:27017"
+
+mongo1:
+  image: mongo:3.0
+  command:  mongod --replSet "rs0" --journal
+  ports:
+    - "27017:27017"
+  links:
+    - mongo2:mongo2
+    - mongo3:mongo3
+
+
+
+#mongosetup:
+#  image: mongo:3.0
+#  links:
+#    - mongo1:mongo1
+#  command: |
+#    mongo --host mongo1:27017 <<EOF
+#    var cfg = {
+#        "_id": "rs",
+#        "version": 1,
+#        "members": [
+#            {
+#                "_id": 0,
+#                "host": "127.0.0.1:27017",
+#                "priority": 1
+#            },
+#            {
+#                "_id": 1,
+#                "host": "mongo2:27017",
+#                "priority": 1
+#            },
+#            {
+#                "_id": 2,
+#                "host": "mongo2:27017",
+#                "priority": 1
+#            }
+#        ]
+#    };
+#    rs.initiate(cfg);
+#    rs.reconfig(cfg)
+#    EOF
+#
+
+      ## This image downloads mappings.json and informs elasticsearch of which database and collection to index
+      #elasticsearchriversetup:
+      #  image: "stabenfeldt/elasticsearch-river-setup"
+      #  environment:
+      #    MAPPING_FILE: "https://raw.githubusercontent.com/soldotno/harvester-webservice/feature/es-back/setup-harvester-index.json?token=AALEGGpgMJ9YjgBmtULOjOzYDwzXB7KXks5VllWqwA%3D%3D"
+      #    RIVER_NAME: "harvester"
+      #
+      #

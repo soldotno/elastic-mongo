@@ -49,5 +49,3 @@ elasticsearchriversetup:
   environment:
     MAPPING_FILE: "https://raw.githubusercontent.com/soldotno/harvester-webservice/feature/es-back/setup-harvester-index.json?token=AALEGGpgMJ9YjgBmtULOjOzYDwzXB7KXks5VllWqwA%3D%3D"
     RIVER_NAME: "harvester"
-
-

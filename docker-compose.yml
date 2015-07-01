@@ -6,13 +6,6 @@ elasticsearch:
     - "9300:9300"
   image: stabenfeldt/elasticsearch-river-mongodb
 
-# MongoDB replicaset
-#
-# - From the image documentation
-# docker run --name some-app --link some-mongo:mongo -d application-that-uses-mongo
-#
-# … or via mongo
-# docker run -it --link some-mongo:mongo --rm mongo sh -c 'exec mongo "$MONGO_PORT_27017_TCP_ADDR:$MONGO_PORT_27017_TCP_PORT/test"'
 
 mongo2:
   hostname: mongo2
@@ -39,7 +32,6 @@ mongo1:
     - mongo3:mongo3
 
 
-
 mongosetup:
   image: mongo:3.0
   links:
@@ -51,13 +43,11 @@ mongosetup:
   entrypoint: /scripts/setup.sh
 
 
-  #command: echo 'var cfg = { "_id": "rs", "version": 1, "members": [ { "_id": 0, "host": "127.0.0.1:27017", "priority": 1 }, { "_id": 1, "host": "mongo2:27017", "priority": 1 },{ "_id": 2, "host": "mongo2:27017", "priority": 1 } ] }; rs.initiate(cfg);' | mongo mongo1
-
 ## This image downloads mappings.json and informs elasticsearch of which database and collection to index
-#elasticsearchriversetup:
-#  image: "stabenfeldt/elasticsearch-river-setup"
-#  environment:
-#    MAPPING_FILE: "https://raw.githubusercontent.com/soldotno/harvester-webservice/feature/es-back/setup-harvester-index.json?token=AALEGGpgMJ9YjgBmtULOjOzYDwzXB7KXks5VllWqwA%3D%3D"
-#    RIVER_NAME: "harvester"
-#
-#
+elasticsearchriversetup:
+  image: "stabenfeldt/elasticsearch-river-setup"
+  environment:
+    MAPPING_FILE: "https://raw.githubusercontent.com/soldotno/harvester-webservice/feature/es-back/setup-harvester-index.json?token=AALEGGpgMJ9YjgBmtULOjOzYDwzXB7KXks5VllWqwA%3D%3D"
+    RIVER_NAME: "harvester"
+
+

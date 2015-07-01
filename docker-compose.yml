@@ -1,5 +1,4 @@
 # To get ES and MongoDB do play with each other, we need a MongoDB replicaset and Elasticsearch.
-
 # Elasticsearch with rivers for mongodb
 elasticsearch:
   ports:
@@ -16,20 +15,23 @@ elasticsearch:
 # docker run -it --link some-mongo:mongo --rm mongo sh -c 'exec mongo "$MONGO_PORT_27017_TCP_ADDR:$MONGO_PORT_27017_TCP_PORT/test"'
 
 mongo2:
+  hostname: mongo2
   image: mongo:3.0
-  command:  mongod --replSet "rs0" --journal
+  command: mongod --replSet "rs" --journal
   ports:
     - "27018:27017"
 
 mongo3:
+  hostname: mongo3
   image: mongo:3.0
-  command: mongod --replSet "rs0" --journal
+  command: mongod --replSet "rs" --journal
   ports:
     - "27019:27017"
 
 mongo1:
+  hostname: mongo1
   image: mongo:3.0
-  command:  mongod --replSet "rs0" --journal
+  command: mongod --replSet "rs" --journal
   ports:
     - "27017:27017"
   links:
@@ -38,43 +40,24 @@ mongo1:
 
 
 
-#mongosetup:
-#  image: mongo:3.0
-#  links:
-#    - mongo1:mongo1
-#  command: |
-#    mongo --host mongo1:27017 <<EOF
-#    var cfg = {
-#        "_id": "rs",
-#        "version": 1,
-#        "members": [
-#            {
-#                "_id": 0,
-#                "host": "127.0.0.1:27017",
-#                "priority": 1
-#            },
-#            {
-#                "_id": 1,
-#                "host": "mongo2:27017",
-#                "priority": 1
-#            },
-#            {
-#                "_id": 2,
-#                "host": "mongo2:27017",
-#                "priority": 1
-#            }
-#        ]
-#    };
-#    rs.initiate(cfg);
-#    rs.reconfig(cfg)
-#    EOF
-#
+mongosetup:
+  image: mongo:3.0
+  links:
+    - mongo1:mongo1
+    - mongo2:mongo2
+    - mongo3:mongo3
+  volumes:
+    - ./scripts:/scripts
+  entrypoint: /scripts/setup.sh
 
-      ## This image downloads mappings.json and informs elasticsearch of which database and collection to index
-      #elasticsearchriversetup:
-      #  image: "stabenfeldt/elasticsearch-river-setup"
-      #  environment:
-      #    MAPPING_FILE: "https://raw.githubusercontent.com/soldotno/harvester-webservice/feature/es-back/setup-harvester-index.json?token=AALEGGpgMJ9YjgBmtULOjOzYDwzXB7KXks5VllWqwA%3D%3D"
-      #    RIVER_NAME: "harvester"
-      #
-      #
+
+  #command: echo 'var cfg = { "_id": "rs", "version": 1, "members": [ { "_id": 0, "host": "127.0.0.1:27017", "priority": 1 }, { "_id": 1, "host": "mongo2:27017", "priority": 1 },{ "_id": 2, "host": "mongo2:27017", "priority": 1 } ] }; rs.initiate(cfg);' | mongo mongo1
+
+## This image downloads mappings.json and informs elasticsearch of which database and collection to index
+#elasticsearchriversetup:
+#  image: "stabenfeldt/elasticsearch-river-setup"
+#  environment:
+#    MAPPING_FILE: "https://raw.githubusercontent.com/soldotno/harvester-webservice/feature/es-back/setup-harvester-index.json?token=AALEGGpgMJ9YjgBmtULOjOzYDwzXB7KXks5VllWqwA%3D%3D"
+#    RIVER_NAME: "harvester"
+#
+#

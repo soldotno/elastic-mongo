@@ -11,8 +11,6 @@ mongo2:
   hostname: mongo2
   image: mongo:3.0
   entrypoint: [ "/usr/bin/mongod", "--replSet", "rs", "--journal", "--smallfiles" ]
-  #volumes:
-  #  - ./datadir2:/data/db
   ports:
     - "27018:27017"
 
@@ -20,8 +18,6 @@ mongo3:
   hostname: mongo3
   image: mongo:3.0
   entrypoint: [ "/usr/bin/mongod", "--replSet", "rs", "--journal", "--smallfiles" ]
-  #volumes:
-  #  - ./datadir3:/data/db
   ports:
     - "27019:27017"
 
@@ -29,8 +25,6 @@ mongo1:
   hostname: mongo1
   image: mongo:3.0
   entrypoint: [ "/usr/bin/mongod", "--replSet", "rs", "--journal", "--smallfiles" ]
-  #volumes:
-  #  - ./datadir1:/data/db
   ports:
     - "27017:27017"
   links:
@@ -47,7 +41,6 @@ mongosetup:
   volumes:
     - ./scripts:/scripts
   entrypoint: [ "/scripts/setup.sh" ]
-
 
 ## This image downloads mappings.json and informs elasticsearch of which database and collection to index
 #elasticsearchriversetup:

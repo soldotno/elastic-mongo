@@ -38,15 +38,15 @@ mongo1:
     - mongo3:mongo3
 
 
-#mongosetup:
-#  image: mongo:3.0
-#  links:
-#    - mongo1:mongo1
-#    - mongo2:mongo2
-#    - mongo3:mongo3
-#  volumes:
-#    - ./scripts:/scripts
-#  entrypoint: /scripts/setup.sh
+mongosetup:
+  image: mongo:3.0
+  links:
+    - mongo1:mongo1
+    - mongo2:mongo2
+    - mongo3:mongo3
+  volumes:
+    - ./scripts:/scripts
+  entrypoint: [ "/scripts/setup.sh" ]
 
 
 ## This image downloads mappings.json and informs elasticsearch of which database and collection to index

@@ -1,11 +1,5 @@
 # To get ES and MongoDB do play with each other, we need a MongoDB replicaset and Elasticsearch.
 # Elasticsearch with rivers for mongodb
-elasticsearch:
-  ports:
-    - "9200:9200"
-    - "9300:9300"
-  image: stabenfeldt/elasticsearch-river-mongodb
-
 
 mongo2:
   hostname: mongo2
@@ -31,6 +25,15 @@ mongo1:
     - mongo2:mongo2
     - mongo3:mongo3
 
+elasticsearch:
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  image: stabenfeldt/elasticsearch-river-mongodb
+  links:
+    - mongo1:mongo1
+    - mongo2:mongo2
+    - mongo3:mongo3
 
 mongosetup:
   image: mongo:3.0
@@ -42,9 +45,11 @@ mongosetup:
     - ./scripts:/scripts
   entrypoint: [ "/scripts/setup.sh" ]
 
-# This image downloads mappings.json and informs elasticsearch of which database and collection to index
+## This image downloads mappings.json and informs elasticsearch of which database and collection to index
 elasticsearchriversetup:
   image: "stabenfeldt/elasticsearch-river-setup"
+  links:
+    - elasticsearch:elasticsearch
   environment:
-    MAPPING_FILE: "https://raw.githubusercontent.com/soldotno/harvester-webservice/feature/es-back/setup-harvester-index.json?token=AALEGGpgMJ9YjgBmtULOjOzYDwzXB7KXks5VllWqwA%3D%3D"
+    RIVER_MAPPING: "https://raw.githubusercontent.com/soldotno/harvester/master/mapping.json?token=AALEGK4m1wNBCO0jStpxMDdI4I-FxyoDks5Vn5GjwA%3D%3D"
     RIVER_NAME: "harvester"

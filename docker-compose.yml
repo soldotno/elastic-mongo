@@ -1,12 +1,5 @@
 # To get ES and MongoDB do play with each other, we need a MongoDB replicaset and Elasticsearch.
 # Elasticsearch with rivers for mongodb
-elasticsearch:
-  ports:
-    - "9200:9200"
-    - "9300:9300"
-  image: stabenfeldt/elasticsearch-river-mongodb
-
-
 mongo2:
   hostname: mongo2
   image: mongo:3.0
@@ -31,6 +24,15 @@ mongo1:
     - mongo2:mongo2
     - mongo3:mongo3
 
+elasticsearch:
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  image: stabenfeldt/elasticsearch-river-mongodb
+  links:
+    - mongo1:mongo1
+    - mongo2:mongo2
+    - mongo3:mongo3
 
 mongosetup:
   image: mongo:3.0

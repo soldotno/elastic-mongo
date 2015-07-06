@@ -9,7 +9,8 @@ docker-compose up
 Now you have Elasticsearch and MongoDB configured with mongodb-river.
 
 ```bash
-docker-compose ps
+$ docker-compose ps
+
                  Name                               Command               State                        Ports
 ---------------------------------------------------------------------------------------------------------------------------------
 elasticmongo_elasticsearch_1             elasticsearch                    Up       0.0.0.0:9200->9200/tcp, 0.0.0.0:9300->9300/tcp

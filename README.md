@@ -1,15 +1,16 @@
 # elastic-mongo
-Docker setup to get Elasticsearch and MongoDB up and running
+**Docker setup to get Elasticsearch and MongoDB up and running**
 
+```bash
 git clone git@github.com:soldotno/elastic-mongo.git
 cd elastic-mongo
 docker-compose up
-##
+```
 
 Now you have Elasticsearch and MongoDB configured with mongodb-river.
 
 ```bash
-$ docker-compose ps
+docker-compose ps  # =>
 
                  Name                               Command               State                        Ports
 ---------------------------------------------------------------------------------------------------------------------------------

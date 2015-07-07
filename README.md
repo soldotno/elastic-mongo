@@ -2,7 +2,7 @@
 **Docker setup to get Elasticsearch and MongoDB up and running**
 
 ```bash
-git clone git@github.com:soldotno/elastic-mongo.git
+git clone https://github.com/soldotno/elastic-mongo.git
 cd elastic-mongo
 docker-compose up -d  # If you skip -d, then the entire clusted will go down when
                       # mongosetup and elasticsearch-river-setup are done.

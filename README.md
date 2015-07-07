@@ -1,4 +1,4 @@
-# elastic-mongo
+# Elastic Mongo
 **Docker setup to get Elasticsearch and MongoDB up and running**
 
 ```bash

@@ -4,9 +4,8 @@
 ```bash
 git clone git@github.com:soldotno/elastic-mongo.git
 cd elastic-mongo
-docker-compose up -d  # If you skip -d, then the entire clusted 
-                      # will go down when mongosetup and elasticsearch-river-setup
-                      # are done.
+docker-compose up -d  # If you skip -d, then the entire clusted will go down when
+                      # mongosetup and elasticsearch-river-setup are done.
 ```
 
 Now you have Elasticsearch and MongoDB configured with mongodb-river.

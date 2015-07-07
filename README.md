@@ -23,7 +23,7 @@ elasticmongo_mongosetup_1                /scripts/setup.sh                Exit 0
 ```
 
 ## Configuring your river
-Update compose.yml to your likings.
+Update [docker-compose.yml](https://github.com/soldotno/elastic-mongo/blob/master/docker-compose.yml) to your likings.
 
 `RIVER_MAPPING` must point to a JSON file that describes which MongoDB database and collection to index.
 At SOL we index entries in the harvester database. It looks like this:

@@ -1,6 +1,3 @@
-# To get ES and MongoDB do play with each other, we need a MongoDB replicaset and Elasticsearch.
-# Elasticsearch with rivers for mongodb
-
 mongo2:
   hostname: mongo2
   image: mongo:3.0
@@ -25,6 +22,8 @@ mongo1:
     - mongo2:mongo2
     - mongo3:mongo3
 
+# The official elasticsearch:1.4.2 image with mapper-attachments and river-mongodb plugins
+# https://github.com/soldotno/elasticsearch-river-mongodb/blob/master/Dockerfile
 elasticsearch:
   ports:
     - "9200:9200"
@@ -45,7 +44,9 @@ mongosetup:
     - ./scripts:/scripts
   entrypoint: [ "/scripts/setup.sh" ]
 
-## This image downloads mappings.json and informs elasticsearch of which database and collection to index
+## This image downloads the json file spesified in RIVER_MAPPING and informs elasticsearch
+#  of which database and collection to index.
+#  https://github.com/soldotno/elasticsearch-river-setup/blob/master/Dockerfile
 elasticsearchriversetup:
   image: "stabenfeldt/elasticsearch-river-setup"
   links:

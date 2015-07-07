@@ -22,4 +22,34 @@ elasticmongo_mongo3_1                    /usr/bin/mongod --replSet  ...   Up    
 elasticmongo_mongosetup_1                /scripts/setup.sh                Exit 0
 ```
 
+## Configuring your river
+Update compose.yml to your likings.
 
+`RIVER_MAPPING` must point to a JSON file that describes which MongoDB database and collection to index.
+At SOL we index entries in the harvester database. It looks like this:
+
+```javascript
+{
+    index: {
+        name: "harvester",
+        type: "entries"
+    },
+    type: "mongodb",
+    mongodb: {
+        servers: [
+            {
+                host: "mongo1"
+            },
+            {
+                host: "mongo2"
+            },
+            {
+                host: "mongo3"
+            }
+        ],
+        gridfs: false,
+        collection: "entries",
+        db: "harvester"
+    }
+}
+```

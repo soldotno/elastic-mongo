@@ -2,9 +2,15 @@
 **Docker setup to get Elasticsearch and MongoDB up and running**
 
 ```bash
-git clone git@github.com:soldotno/elastic-mongo.git
+
+# Install docker-compose
+curl -L https://github.com/docker/compose/releases/download/1.3.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+
+git clone https://github.com/soldotno/elastic-mongo.git
 cd elastic-mongo
-docker-compose up
+docker-compose up -d  # If you skip -d, then the entire clusted will go down when
+                      # mongosetup and elasticsearch-river-setup are done.
 ```
 
 Now you have Elasticsearch and MongoDB configured with mongodb-river.

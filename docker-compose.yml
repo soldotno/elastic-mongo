@@ -57,3 +57,15 @@ elasticsearchriversetup:
   environment:
     RIVER_MAPPING: "https://raw.githubusercontent.com/soldotno/harvester/master/mapping.json?token=AALEGK4m1wNBCO0jStpxMDdI4I-FxyoDks5Vn5GjwA%3D%3D"
     RIVER_NAME: "harvester"
+
+
+insertdataqueryes:
+  image: mongo:3.0
+  links:
+    - mongo1:mongo1
+    - mongo2:mongo2
+    - mongo3:mongo3
+    - elasticsearch:elasticsearch
+  volumes:
+    - ./scripts:/scripts
+  entrypoint: [ "/scripts/query.sh" ]

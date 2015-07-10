@@ -12,8 +12,16 @@ until curl http://${MONGODB1}:28017/isMaster\?text\=1  2>&1 | grep ismaster | gr
 done
 echo "The primary is elected."
 
+echo "Waiting for Elasticsearch startup."
+echo  curl ${ES}:9200 2>&1 | grep "You Know, for Search"
+until curl ${ES}:9200 2>&1 | grep "You Know, for Search"; do
+  echo '.'
+  curl ${ES}:9200 2>&1
+  sleep 1
+done
 
-echo QUERY – time now: `date +"%T" `
+echo Done!
+
 
 echo "================================="
 echo "Writing to MongoDB"
@@ -40,7 +48,6 @@ echo "================================="
 
 
 echo "Reading from Elasticsearch"
-sleep 5
 echo curl -XGET http://${ES}:9200/harvester/_search?pretty&q=*:*
 curl -XGET "http://${ES}:9200/harvester/_search?pretty&q=*:*"
 

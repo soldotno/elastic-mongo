@@ -17,7 +17,7 @@ echo "Writing to MongoDB"
 echo "Version 1"
 
 mongo ${MONGODB1} <<EOF
-  use harvestertest
+  use harvester
   rs.config()
   var p = {title: "Breaking news", content: "It's not summer yet."}
   db.entries.save(p)
@@ -27,13 +27,20 @@ sleep 2
 
 echo "================================="
 echo "Fetching data from Mongo"
-curl http://${MONGODB1}:28017/harvestertest/entries/?limit=10
+echo curl http://${MONGODB1}:28017/harvester/entries/?limit=10
+
+curl http://${MONGODB1}:28017/harvester/entries/?limit=10
+
 echo "================================="
 
 
+
 echo "Reading from Elasticsearch"
-sleep 1
-curl -XGET "http://${ES}:9200/harvestertest/_search?q=firstName:John&pretty"
+sleep 5
+echo curl -XGET http://dockerhost:9200/harvester/_search?pretty&q=*:*
+curl -XGET "http://${ES}:9200/harvester/_search?pretty&q=*:*"
+
+
 echo "================================="
 
 echo "DONE"

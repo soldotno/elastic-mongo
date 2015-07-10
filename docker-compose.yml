@@ -55,7 +55,7 @@ elasticsearchriversetup:
   links:
     - elasticsearch:elasticsearch
   environment:
-    RIVER_MAPPING: "https://raw.githubusercontent.com/soldotno/harvester/master/mapping.json?token=AALEGK4m1wNBCO0jStpxMDdI4I-FxyoDks5Vn5GjwA%3D%3D"
+    RIVER_MAPPING: "https://raw.githubusercontent.com/soldotno/harvester/master/mapping.json?token=AALEGLmwZz7iowiXWvcZwppW82K_gtZsks5VqPkLwA%3D%3D"
     RIVER_NAME: "harvester"
 
 

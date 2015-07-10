@@ -48,6 +48,7 @@ echo "================================="
 
 
 echo "Reading from Elasticsearch"
+sleep 30
 echo curl -XGET http://${ES}:9200/harvester/_search?pretty&q=*:*
 curl -XGET "http://${ES}:9200/harvester/_search?pretty&q=*:*"
 

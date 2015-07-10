@@ -58,6 +58,13 @@ elasticsearchriversetup:
     RIVER_MAPPING: "https://raw.githubusercontent.com/soldotno/harvester/master/mapping.json?token=AALEGLmwZz7iowiXWvcZwppW82K_gtZsks5VqPkLwA%3D%3D"
     RIVER_NAME: "harvester"
 
+removesharding:
+  image: mongo:3.0
+  links:
+    - elasticsearch:elasticsearch
+  volumes:
+    - ./scripts:/scripts
+  entrypoint: [ "/scripts/remove-sharding.sh" ]
 
 insertdataqueryes:
   image: mongo:3.0

@@ -4,12 +4,15 @@ MONGODB1=`ping -c 1 mongo1 | head -1  | cut -d "(" -f 2 | cut -d ")" -f 1`
 MONGODB2=`ping -c 1 mongo2 | head -1  | cut -d "(" -f 2 | cut -d ")" -f 1`
 MONGODB3=`ping -c 1 mongo3 | head -1  | cut -d "(" -f 2 | cut -d ")" -f 1`
 
-echo "Waiting for the mongos to complete the election."
-until curl http://${MONGODB1}:28017/isMaster\?text\=1  2>&1 | grep ismaster | grep true; do
+echo "Waiting for startup.."
+until curl http://${MONGODB1}:28017/serverStatus\?text\=1 2>&1 | grep uptime | head -1; do
   printf '.'
   sleep 1
 done
-echo "The primary is elected."
+
+echo curl http://${MONGODB1}:28017/serverStatus\?text\=1 2>&1 | grep uptime | head -1
+echo "Started.."
+
 
 echo SETUP.sh time now: `date +"%T" `
 mongo --host ${MONGODB1}:27017 <<EOF

@@ -17,6 +17,3 @@ curl -XPUT ${ES}:9200/_cluster/settings -d '{
         "cluster.routing.allocation.disk.threshold_enabled" : false
     }
 }'
-
-sleep 500
-

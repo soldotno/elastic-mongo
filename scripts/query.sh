@@ -5,6 +5,14 @@ MONGODB2=`ping -c 1 mongo2 | head -1  | cut -d "(" -f 2 | cut -d ")" -f 1`
 MONGODB3=`ping -c 1 mongo3 | head -1  | cut -d "(" -f 2 | cut -d ")" -f 1`
 ES=`ping -c 1 elasticsearch | head -1  | cut -d "(" -f 2 | cut -d ")" -f 1`
 
+echo "================================="
+# Output available disk space. Full disk will happen unless we find a
+# way to clean up all the containers we create.
+echo "Disk space"
+echo df -h
+echo "=================================\n\n"
+
+
 echo "Waiting for the mongos to complete the election."
 until curl http://${MONGODB1}:28017/isMaster\?text\=1  2>&1 | grep ismaster | grep true; do
   printf '.'

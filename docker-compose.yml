@@ -5,6 +5,7 @@ mongo3:
   ports:
     - "27018:27017"
     - "28018:28017"
+  restart: always
 
 mongo2:
   hostname: mongo2
@@ -13,6 +14,7 @@ mongo2:
   ports:
     - "27019:27017"
     - "28019:28017"
+  restart: always
 
 mongo1:
   hostname: mongo1
@@ -24,6 +26,7 @@ mongo1:
   links:
     - mongo2:mongo2
     - mongo3:mongo3
+  restart: always
 
 # The official elasticsearch:1.4.2 image with mapper-attachments and river-mongodb plugins
 # It's Dockerfile is located in the docker-images directory in this repo.
@@ -36,6 +39,7 @@ elasticsearch:
     - mongo1:mongo1
     - mongo2:mongo2
     - mongo3:mongo3
+  restart: always
 
 mongosetup:
   image: mongo:3.0
@@ -55,8 +59,8 @@ elasticsearchriversetup:
   links:
     - elasticsearch:elasticsearch
   environment:
-    RIVER_MAPPING: "https://raw.githubusercontent.com/soldotno/harvester/master/mapping.json?token=AALEGLmwZz7iowiXWvcZwppW82K_gtZsks5VqPkLwA%3D%3D"
-    RIVER_NAME: "harvester"
+    RIVER_MAPPING: "https://raw.githubusercontent.com/soldotno/harvester-1436788005/master/mapping.json?token=AALEGLmwZz7iowiXWvcZwppW82K_gtZsks5VqPkLwA%3D%3D"
+    RIVER_NAME: "harvester-1436788005"
 
 # Make sure ES does not rellocate it's shards when it has low disk space.
 disabledisktreshold:

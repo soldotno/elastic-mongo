@@ -1,13 +1,13 @@
-mongo2:
-  hostname: mongo2
+mongo3:
+  hostname: mongo3
   image: mongo:3.0
   entrypoint: [ "/usr/bin/mongod", "--replSet", "rs", "--journal", "--smallfiles", "--rest" ]
   ports:
     - "27018:27017"
     - "28018:28017"
 
-mongo3:
-  hostname: mongo3
+mongo2:
+  hostname: mongo2
   image: mongo:3.0
   entrypoint: [ "/usr/bin/mongod", "--replSet", "rs", "--journal", "--smallfiles", "--rest" ]
   ports:
@@ -26,7 +26,7 @@ mongo1:
     - mongo3:mongo3
 
 # The official elasticsearch:1.4.2 image with mapper-attachments and river-mongodb plugins
-# https://github.com/soldotno/elasticsearch-river-mongodb/blob/master/Dockerfile
+# It's Dockerfile is located in the docker-images directory in this repo.
 elasticsearch:
   ports:
     - "9200:9200"
@@ -48,8 +48,8 @@ mongosetup:
   entrypoint: [ "/scripts/setup.sh" ]
 
 ## This image downloads the json file spesified in RIVER_MAPPING and informs elasticsearch
-#  of which database and collection to index.
-#  https://github.com/soldotno/elasticsearch-river-setup/blob/master/Dockerfile
+# of which database and collection to index.
+# It's Dockerfile is located in the docker-images directory in this repo.
 elasticsearchriversetup:
   image: "stabenfeldt/elasticsearch-river-setup"
   links:

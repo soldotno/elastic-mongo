@@ -1,6 +1,6 @@
 mongo3:
   hostname: mongo3
-  image: mongo:3.0
+  image: mongo:3.1.5
   entrypoint: [ "/usr/bin/mongod", "--replSet", "rs", "--journal", "--smallfiles", "--rest" ]
   ports:
     - "27018:27017"
@@ -9,7 +9,7 @@ mongo3:
 
 mongo2:
   hostname: mongo2
-  image: mongo:3.0
+  image: mongo:3.1.5
   entrypoint: [ "/usr/bin/mongod", "--replSet", "rs", "--journal", "--smallfiles", "--rest" ]
   ports:
     - "27019:27017"
@@ -18,7 +18,7 @@ mongo2:
 
 mongo1:
   hostname: mongo1
-  image: mongo:3.0
+  image: mongo:3.1.5
   entrypoint: [ "/usr/bin/mongod", "--replSet", "rs", "--journal", "--smallfiles", "--rest" ]
   ports:
     - "27017:27017"
@@ -28,19 +28,21 @@ mongo1:
     - mongo3:mongo3
   restart: always
 
-# The official elasticsearch:1.4.2 image with mapper-attachments and river-mongodb plugins
+# The official elasticsearch image with mapper-attachments and river-mongodb plugins
 # It's Dockerfile is located in the docker-images directory in this repo.
 elasticsearch:
+  hostname: elasticsearch
+  image: elasticsearch:1.6
   ports:
     - "9200:9200"
     - "9300:9300"
-  image: stabenfeldt/elasticsearch-river-mongodb
   links:
     - mongo1:mongo1
     - mongo2:mongo2
     - mongo3:mongo3
   restart: always
 
+# This configures the replicaset
 mongosetup:
   image: mongo:3.0
   links:

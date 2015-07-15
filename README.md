@@ -3,9 +3,9 @@
 
 ```bash
 
-# Install docker-compose
-curl -L https://github.com/docker/compose/releases/download/1.3.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
+# Install Docker and docker-compose
+https://docs.docker.com/installation
+https://docs.docker.com/compose/install/
 
 git clone https://github.com/soldotno/elastic-mongo.git
 cd elastic-mongo

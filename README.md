@@ -1,11 +1,13 @@
 # Elastic Mongo
 **Docker setup to get Elasticsearch and MongoDB up and running**
 
-```bash
 
-# Install Docker and docker-compose
+
+### Install Docker and docker-compose
 https://docs.docker.com/installation
 https://docs.docker.com/compose/install/
+
+```bash
 
 git clone https://github.com/soldotno/elastic-mongo.git
 cd elastic-mongo

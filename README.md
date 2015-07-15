@@ -4,8 +4,9 @@
 
 
 ### Install Docker and docker-compose
-https://docs.docker.com/installation
-https://docs.docker.com/compose/install/
+
+* https://docs.docker.com/installation
+* https://docs.docker.com/compose/install/
 
 ```bash
 

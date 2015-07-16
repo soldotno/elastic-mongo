@@ -55,7 +55,7 @@ mongosetup:
 
 # Starts mongo-connector
 connector:
-  image: mongo:3.0
+  image: python:latest
   links:
     - mongo1:mongo1
     - mongo2:mongo2

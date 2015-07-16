@@ -64,3 +64,17 @@ connector:
   volumes:
     - ./scripts:/scripts
   entrypoint: [ "/scripts/mongo-connector.sh" ]
+
+
+# Verify reading and writing
+# Run 'docker logs -f elasticmongo_verify_1' to see what it outputs.
+verify:
+  image: mongo:3.0.4
+  links:
+    - mongo1:mongo1
+    - mongo2:mongo2
+    - mongo3:mongo3
+    - elasticsearch:elasticsearch
+  volumes:
+    - ./scripts:/scripts
+  entrypoint: [ "/scripts/query.sh" ]

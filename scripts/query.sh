@@ -54,6 +54,11 @@ curl http://${MONGODB1}:28017/harvester/entries/?limit=10
 echo "================================="
 
 
+echo "Waiting for mongo-connector to be installed"
+until [ -f '/scripts/mongo-connector-installed'  ]; do
+  printf '.'
+  sleep 1
+done
 
 echo "Reading from Elasticsearch (sleeping 10 seconds first)"
 sleep 10

@@ -10,9 +10,9 @@ until curl http://${MONGODB1}:28017/serverStatus\?text\=1 2>&1 | grep uptime | h
 done
 echo "MongoDB has started!"
 
-echo "Installing mongo-connector"
 pip install mongo-connector
 
-echo "Starting mongo-connector"
+echo "\n\nStarting mongo-connector.."
+touch /scripts/mongo-connector-installed
 mongo-connector --auto-commit-interval=5 -m ${MONGODB1}:27017 -t ${ELASTICSEARCH}:9200 -d elastic_doc_manager --stdout
 # ^ Add -v for more verbos logging.

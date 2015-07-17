@@ -21,20 +21,17 @@ done
 echo "The primary is elected."
 
 echo "Waiting for Elasticsearch startup."
-echo  curl ${ES}:9200 2>&1 | grep "You Know, for Search"
 until curl ${ES}:9200 2>&1 | grep "You Know, for Search"; do
   echo '.'
   curl ${ES}:9200 2>&1
   sleep 1
 done
+echo "Elasticsearch started."
 
-echo Done!
 
 
 echo "================================="
 echo "Writing to MongoDB"
-
-echo "Version 1"
 
 mongo ${MONGODB1} <<EOF
   use harvester
@@ -55,7 +52,9 @@ echo "================================="
 
 
 echo "Waiting for mongo-connector to be installed"
-until [ -f '/scripts/mongo-connector-installed'  ]; do
+TOUCH_FILE='/scripts/mongo-connector-installed'
+
+until [ -f $TOUCH_FILE ]; do
   printf '.'
   sleep 1
 done
@@ -69,4 +68,5 @@ curl -XGET "http://${ES}:9200/harvester/_search?pretty&q=*:*"
 echo "================================="
 
 echo "DONE"
+rm $TOUCH_FILE
 

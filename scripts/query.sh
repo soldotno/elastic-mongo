@@ -13,19 +13,6 @@ echo `df -h`
 echo "=================================\n\n"
 
 
-echo "Waiting for the mongos to complete the election."
-until curl http://${MONGODB1}:28017/isMaster\?text\=1  2>&1 | grep ismaster | grep true; do
-  printf '.'
-  sleep 1
-done
-echo "The primary is elected."
-
-echo "Waiting for Elasticsearch to start."
-until curl ${ES}:9200/_cluster/health?pretty 2>&1 | grep status | grep green; do
-  printf '.'
-  sleep 1
-done
-echo "Elasticsearch started."
 
 
 

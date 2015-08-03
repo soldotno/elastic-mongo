@@ -28,8 +28,6 @@ mongo1:
     - mongo3:mongo3
   restart: always
 
-# The official elasticsearch image with mapper-attachments and river-mongodb plugins
-# It's Dockerfile is located in the docker-images directory in this repo.
 elasticsearch:
   hostname: elasticsearch
   image: elasticsearch:1.6
@@ -42,7 +40,7 @@ elasticsearch:
     - mongo3:mongo3
   restart: always
 
-# This configures the replicaset
+# This configures the MongoDB replicaset
 mongosetup:
   image: mongo:3.0.5
   links:
@@ -53,7 +51,8 @@ mongosetup:
     - ./scripts:/scripts
   entrypoint: [ "/scripts/setup.sh" ]
 
-# Starts mongo-connector
+# mongo-connector
+# https://github.com/10gen-labs/mongo-connector
 connector:
   image: python:latest
   links:

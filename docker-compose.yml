@@ -44,7 +44,7 @@ elasticsearch:
 
 # This configures the replicaset
 mongosetup:
-  image: mongo:3.0.4
+  image: mongo:3.0.5
   links:
     - mongo1:mongo1
     - mongo2:mongo2
@@ -69,7 +69,7 @@ connector:
 # Verify reading and writing
 # Run 'docker logs -f elasticmongo_verify_1' to see what it outputs.
 verify:
-  image: mongo:3.0.4
+  image: mongo:3.0.5
   links:
     - mongo1:mongo1
     - mongo2:mongo2

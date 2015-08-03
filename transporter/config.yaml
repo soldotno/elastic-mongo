@@ -1,0 +1,18 @@
+nodes:
+  mongo:
+    type: mongo
+    uri: mongodb://mongo1/harvester
+    namespace: harvester.entries
+    debug: true
+  es:
+    type: elasticsearch
+    uri: http://elasticsearch:9200/
+  debug:
+    type: file
+    uri: stdout://
+  stdout:
+    type: file
+    uri: stdout://
+  logtransformer:
+    filename: test/transformers/passthrough_and_log.js
+    type: transformer

@@ -20,11 +20,9 @@ until curl http://${MONGODB1}:28017/isMaster\?text\=1  2>&1 | grep ismaster | gr
 done
 echo "The primary is elected."
 
-echo "Waiting for Elasticsearch startup."
-until curl ${ES}:9200 2>&1 | grep status | grep green; do
-  echo '.'
-  curl ${ES}:9200 2>&1
+echo "Waiting for Elasticsearch to start."
 until curl ${ES}:9200/_cluster/health?pretty 2>&1 | grep status | grep green; do
+  printf '.'
   sleep 1
 done
 echo "Elasticsearch started."
@@ -33,7 +31,6 @@ echo "Elasticsearch started."
 
 echo "================================="
 echo "Writing to MongoDB"
-
 mongo ${MONGODB1} <<EOF
   use harvester
   rs.config()
@@ -41,14 +38,11 @@ mongo ${MONGODB1} <<EOF
   db.entries.save(p)
 EOF
 
-sleep 2
 
 echo "================================="
 echo "Fetching data from Mongo"
 echo curl http://${MONGODB1}:28017/harvester/entries/?limit=10
-
 curl http://${MONGODB1}:28017/harvester/entries/?limit=10
-
 echo "================================="
 
 
@@ -60,9 +54,8 @@ until [ -f $TOUCH_FILE ]; do
   sleep 1
 done
 
-printf "\nReading from Elasticsearch (sleeping 20 seconds first)"
-sleep 20
-echo curl -XGET http://${ES}:9200/harvester/_search?pretty&q=*:*
+printf "\nReading from Elasticsearch (sleeping 20 seconds first)\n\n"
+sleep 3
 curl -XGET "http://${ES}:9200/harvester/_search?pretty&q=*:*"
 
 

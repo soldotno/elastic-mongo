@@ -53,16 +53,33 @@ mongosetup:
 
 # mongo-connector
 # https://github.com/10gen-labs/mongo-connector
-connector:
-  image: python:latest
+#connector:
+#  image: python:latest
+#  links:
+#    - mongo1:mongo1
+#    - mongo2:mongo2
+#    - mongo3:mongo3
+#    - elasticsearch:elasticsearch
+#  volumes:
+#    - ./scripts:/scripts
+#  entrypoint: [ "/scripts/mongo-connector.sh" ]
+
+
+# Transporter
+#
+# https://github.com/compose/transporter
+# https://www.compose.io/articles/transporter-driving-part-one/
+transporter:
+  image: golang:1.4.2
   links:
     - mongo1:mongo1
     - mongo2:mongo2
     - mongo3:mongo3
     - elasticsearch:elasticsearch
   volumes:
+    - ./transporter:/transporter
     - ./scripts:/scripts
-  entrypoint: [ "/scripts/mongo-connector.sh" ]
+  entrypoint: [ "/transporter/run.sh" ]
 
 
 # Verify reading and writing

@@ -13,7 +13,7 @@ echo `df -h`
 echo "=================================\n\n"
 
 
-
+/scripts/wait-until-started.sh
 
 
 echo "================================="
@@ -33,14 +33,6 @@ curl http://${MONGODB1}:28017/harvester/entries/?limit=10
 echo "================================="
 
 
-echo "Waiting for mongo-connector to be installed"
-TOUCH_FILE='/scripts/mongo-connector-installed'
-
-until [ -f $TOUCH_FILE ]; do
-  printf '.'
-  sleep 1
-done
-
 printf "\nReading from Elasticsearch (sleeping 20 seconds first)\n\n"
 sleep 10
 curl -XGET "http://${ES}:9200/harvester/_search?pretty&q=*:*"
@@ -49,5 +41,4 @@ curl -XGET "http://${ES}:9200/harvester/_search?pretty&q=*:*"
 echo "================================="
 
 echo "DONE"
-rm $TOUCH_FILE
 

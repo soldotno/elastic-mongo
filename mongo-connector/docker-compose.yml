@@ -1,8 +1,0 @@
-connector:
-  image: python:latest
-  volumes:
-    - ./scripts:/scripts
-  environment:
-    MONGO_URL:
-    ELASTICSEARCH_URL:
-  entrypoint: [ "/scripts/mongo-connector.sh" ]

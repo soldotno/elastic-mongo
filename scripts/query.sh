@@ -24,6 +24,7 @@ echo "Waiting for Elasticsearch startup."
 until curl ${ES}:9200 2>&1 | grep status | grep green; do
   echo '.'
   curl ${ES}:9200 2>&1
+until curl ${ES}:9200/_cluster/health?pretty 2>&1 | grep status | grep green; do
   sleep 1
 done
 echo "Elasticsearch started."

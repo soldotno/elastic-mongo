@@ -1,6 +1,6 @@
 mongo3:
   hostname: mongo3
-  image: mongo:3.0
+  image: mongo:3.0.5
   entrypoint: [ "/usr/bin/mongod", "--replSet", "rs", "--journal", "--smallfiles", "--rest" ]
   ports:
     - "27018:27017"
@@ -9,7 +9,7 @@ mongo3:
 
 mongo2:
   hostname: mongo2
-  image: mongo:3.0
+  image: mongo:3.0.5
   entrypoint: [ "/usr/bin/mongod", "--replSet", "rs", "--journal", "--smallfiles", "--rest" ]
   ports:
     - "27019:27017"
@@ -18,7 +18,7 @@ mongo2:
 
 mongo1:
   hostname: mongo1
-  image: mongo:3.0
+  image: mongo:3.0.5
   entrypoint: [ "/usr/bin/mongod", "--replSet", "rs", "--journal", "--smallfiles", "--rest" ]
   ports:
     - "27017:27017"
@@ -42,7 +42,7 @@ elasticsearch:
   restart: always
 
 mongosetup:
-  image: mongo:3.0
+  image: mongo:3.0.5
   links:
     - mongo1:mongo1
     - mongo2:mongo2
@@ -64,7 +64,7 @@ elasticsearchriversetup:
 
 # Make sure ES does not rellocate it's shards when it has low disk space.
 disabledisktreshold:
-  image: mongo:3.0
+  image: mongo:3.0.5
   links:
     - elasticsearch:elasticsearch
   volumes:
@@ -72,7 +72,7 @@ disabledisktreshold:
   entrypoint: [ "/scripts/disable-disk-treshold.sh" ]
 
 insertdataqueryes:
-  image: mongo:3.0
+  image: mongo:3.0.5
   links:
     - mongo1:mongo1
     - mongo2:mongo2

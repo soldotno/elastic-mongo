@@ -7,12 +7,6 @@ nodes:
   es:
     type: elasticsearch
     uri: http://elasticsearch:9200/
-  debug:
-    type: file
-    uri: stdout://
-  stdout:
-    type: file
-    uri: stdout://
   logtransformer:
     filename: test/transformers/passthrough_and_log.js
     type: transformer

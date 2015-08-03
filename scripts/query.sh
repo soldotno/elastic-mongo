@@ -55,7 +55,7 @@ until [ -f $TOUCH_FILE ]; do
 done
 
 printf "\nReading from Elasticsearch (sleeping 20 seconds first)\n\n"
-sleep 3
+sleep 10
 curl -XGET "http://${ES}:9200/harvester/_search?pretty&q=*:*"
 
 

@@ -21,7 +21,7 @@ done
 echo "The primary is elected."
 
 echo "Waiting for Elasticsearch startup."
-until curl ${ES}:9200 2>&1 | grep "You Know, for Search"; do
+until curl ${ES}:9200 2>&1 | grep status | grep green; do
   echo '.'
   curl ${ES}:9200 2>&1
   sleep 1

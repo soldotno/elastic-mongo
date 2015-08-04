@@ -22,8 +22,8 @@ logger:
   index.indexing.slowlog: TRACE, index_indexing_slow_log_file
 
 additivity:
-  index.search.slowlog: false
-  index.indexing.slowlog: false
+  index.search.slowlog: true
+  index.indexing.slowlog: true
 
 appender:
   console:

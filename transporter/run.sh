@@ -9,6 +9,7 @@ ES=`ping -c 1 elasticsearch | head -1  | cut -d "(" -f 2 | cut -d ")" -f 1`
 cd $GOPATH; mkdir pkg
 mkdir -p src/github.com/compose; cd src/github.com/compose
 git clone https://github.com/compose/transporter; cd transporter
+
 echo "Getting dependencies and building.."
 go get -a ./cmd/...
 go build -a ./cmd/...

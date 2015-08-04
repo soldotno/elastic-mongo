@@ -5,13 +5,6 @@ MONGODB2=`ping -c 1 mongo2 | head -1  | cut -d "(" -f 2 | cut -d ")" -f 1`
 MONGODB3=`ping -c 1 mongo3 | head -1  | cut -d "(" -f 2 | cut -d ")" -f 1`
 ES=`ping -c 1 elasticsearch | head -1  | cut -d "(" -f 2 | cut -d ")" -f 1`
 
-echo "================================="
-# Output available disk space. Full disk will happen unless we find a
-# way to clean up all the containers we create.
-echo "Disk space"
-echo `df -h`
-echo "=================================\n\n"
-
 
 /scripts/wait-until-started.sh
 
@@ -33,12 +26,10 @@ curl http://${MONGODB1}:28017/harvester/entries/?limit=10
 echo "================================="
 
 
-printf "\nReading from Elasticsearch (sleeping 20 seconds first)\n\n"
-sleep 10
+printf "\nReading from Elasticsearch (waiting for the transporter to start)\n\n"
+sleep 40
 curl -XGET "http://${ES}:9200/harvester/_search?pretty&q=*:*"
 
 
 echo "================================="
-
 echo "DONE"
-

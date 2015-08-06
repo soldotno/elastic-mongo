@@ -11,7 +11,7 @@ done
 echo "The primary is elected."
 
 echo "Waiting for Elasticsearch to start."
-until curl ${ES}:9200/_cluster/health?pretty 2>&1 | grep status | grep green; do
+until curl ${ES}:9200/_cluster/health?pretty 2>&1 | grep status | egrep "(green|yellow)"; do
   printf '.'
   sleep 1
 done

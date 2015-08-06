@@ -30,7 +30,7 @@ mongo1:
 
 elasticsearch:
   hostname: elasticsearch
-  image: elasticsearch:1.6
+  image: stabenfeldt/elasticsearch-marvel
   ports:
     - "9200:9200"
     - "9300:9300"
@@ -52,6 +52,12 @@ mongosetup:
   volumes:
     - ./scripts:/scripts
   entrypoint: [ "/scripts/setup.sh" ]
+
+
+###################################################################
+# Make sure you include either mongo-connector OR transporter.
+#
+#
 
 # mongo-connector
 # https://github.com/10gen-labs/mongo-connector

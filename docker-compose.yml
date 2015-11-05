@@ -39,7 +39,7 @@ elasticsearch:
     - mongo2:mongo2
     - mongo3:mongo3
   volumes:
-    - elasticsearch/logging.yml:/etc/elasticsearch/logging.yml
+    - ./elasticsearch/logging.yml:/etc/elasticsearch/logging.yml
   restart: always
 
 # This configures the MongoDB replicaset

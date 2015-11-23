@@ -29,3 +29,9 @@ CONTAINER ID        IMAGE               COMMAND                CREATED          
 
 ```
 
+### Log into a container
+```
+Start bash on running container
+docker exec -i -t elasticmongo_mongo3_1  bash
+```
+  

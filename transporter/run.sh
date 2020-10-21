@@ -18,7 +18,7 @@ godep go build ./cmd/...
 godep go install ./cmd/...
 
 
-/scripts/wait-until-started.sh
+/scripts/wait-until-mongodb-started.sh
 
 cd /transporter
 transporter run --config ./config.yaml ./mongo-es.js

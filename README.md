@@ -29,6 +29,11 @@ CONTAINER ID        IMAGE               COMMAND                CREATED          
 
 ```
 
+### Connect to the MongoDB cluster from your workstation
+```
+mongosh 0.0.0.0:27017
+```
+
 ### Log into a container
 ```
 docker exec -i -t elasticmongo_mongo3_1  bash

@@ -31,8 +31,6 @@ curl http://${MONGODB1}:28017/harvester-test/entries/?limit=10
 echo "================================="
 
 
-printf "\nReading from Elasticsearch (waiting for the transporter to start)\n\n"
-sleep 40
 ################################
 # Read from Elasticsearch
 

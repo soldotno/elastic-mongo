@@ -11,6 +11,9 @@ ES=`ping -c 1 elasticsearch | head -1  | cut -d "(" -f 2 | cut -d ")" -f 1`
 /scripts/wait-until-mongodb-started.sh
 
 
+################################
+# Write to MongoDB
+
 echo "================================="
 echo "Writing to MongoDB"
 mongo ${MONGODB1} <<EOF
@@ -30,6 +33,12 @@ echo "================================="
 
 printf "\nReading from Elasticsearch (waiting for the transporter to start)\n\n"
 sleep 40
+################################
+# Read from Elasticsearch
+
+printf "\nTransporter started \n\n"
+
+printf "\nReading from Elasticsearch\n\n"
 curl -XGET "http://${ES}:9200/harvester-test/_search?pretty&q=*:*"
 
 

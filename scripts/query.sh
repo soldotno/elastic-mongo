@@ -36,6 +36,12 @@ sleep 40
 ################################
 # Read from Elasticsearch
 
+printf "\nWaiting for the transporter to start\n\n"
+
+until test -f /scripts/TRANSPORTER-STARTED; do
+  printf '.'
+  sleep 1
+done
 printf "\nTransporter started \n\n"
 
 printf "\nReading from Elasticsearch\n\n"

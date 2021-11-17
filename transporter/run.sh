@@ -14,7 +14,9 @@ if test -f "$MARKER"; then
   rm $MARKER
 fi
 
-cd $GOPATH; mkdir pkg
+cd $GOPATH 
+[  ! -f pkg ] || mkdir pkg
+
 mkdir -p src/github.com/compose; cd src/github.com/compose
 git clone https://github.com/compose/transporter; cd transporter
 git checkout tags/v0.1.0

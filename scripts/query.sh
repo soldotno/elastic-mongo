@@ -43,7 +43,7 @@ done
 printf "\nTransporter started \n\n"
 
 printf "\nReading from Elasticsearch\n\n"
-curl -XGET "http://${ES}:9200/harvester-test/_search?pretty&q=*:*"
+curl -XGET "http://elasticsearch:9200/harvester-test/_search?pretty&q=*:*"
 
 
 echo "================================="

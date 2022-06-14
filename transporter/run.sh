@@ -21,11 +21,6 @@ mkdir -p src/github.com/compose; cd src/github.com/compose
 git clone https://github.com/compose/transporter; cd transporter
 git checkout tags/v0.1.0
 
-echo "Getting dependencies and building.."
-go get github.com/tools/godep
-godep restore
-godep go build ./cmd/...
-godep go install ./cmd/...
 
 
 /scripts/wait-until-mongodb-started.sh

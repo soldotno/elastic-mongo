@@ -102,7 +102,7 @@ mongosetup:
 # https://github.com/compose/transporter
 # https://www.compose.io/articles/transporter-driving-part-one/
 transporter:
-  image: golang:1.5
+  image: golang:1.18.3
   links:
     - mongo1:mongo1
     - mongo2:mongo2

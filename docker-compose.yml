@@ -54,7 +54,6 @@ mongo1:
 
 elasticsearch:
   hostname: elasticsearch
-  #image: stabenfeldt/elasticsearch-marvel
   image: elasticsearch:7.17.4
   ports:
     - "9200:9200"

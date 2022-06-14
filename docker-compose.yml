@@ -124,7 +124,8 @@ disabledisktreshold:
   entrypoint: ["/scripts/disable-disk-treshold.sh"]
 
 # Verify reading and writing
-# Run 'docker logs -f elasticmongo_verify_1' to see what it outputs.
+# Run 'docker logs -f elastic-mongo_verify_1' to see what it outputs.
+# That works even though the container has stopped.
 verify:
   image: mongo:3.0.6
   links:

@@ -112,7 +112,7 @@ transporter:
     - ./transporter:/transporter
     - ./scripts:/scripts
   entrypoint: ["/transporter/run.sh"]
-  restart: always
+  restart: "no"
 
 # Make sure ES does not rellocate it's shards when it has low disk space.
 disabledisktreshold:

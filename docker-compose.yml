@@ -1,4 +1,5 @@
 version: "3"
+
 services:
   mongo3:
     hostname: mongo3
@@ -29,6 +30,10 @@ services:
         "--smallfiles",
         "--rest",
       ]
+    ports:
+      - "27019:27017"
+      - "28019:28017"
+    restart: always
 
   mongo1:
     hostname: mongo1
@@ -123,6 +128,82 @@ services:
     # Verify reading and writing
     # Run 'docker logs -f elastic-mongo_verify_1' to see what it outputs.
     # That works even though the container has stopped.
+  
+  elasticsearch:
+    hostname: elasticsearch
+    image: elasticsearch:7.17.4
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    links:
+      - mongo1:mongo1
+      - mongo2:mongo2
+      - mongo3:mongo3
+    volumes:
+      - ./elasticsearch/logging.yml:/etc/elasticsearch/logging.yml
+    restart: always
+  
+    # This configures the MongoDB replicaset
+  mongosetup:
+    image: mongo:3.0.6
+    links:
+      - mongo1:mongo1
+      - mongo2:mongo2
+      - mongo3:mongo3
+    volumes:
+      - ./scripts:/scripts
+    entrypoint: ["/scripts/setup.sh"]
+
+      ###################################################################
+      # Make sure you include either mongo-connector OR transporter.
+      #
+      #
+
+      # mongo-connector
+      # https://github.com/10gen-labs/mongo-connector
+      #connector:
+      #  image: python:latest
+      #  links:
+      #    - mongo1:mongo1
+      #    - mongo2:mongo2
+      #    - mongo3:mongo3
+      #    - elasticsearch:elasticsearch
+      #  volumes:
+      #    - ./scripts:/scripts
+      #  entrypoint: [ "/scripts/mongo-connector.sh" ]
+
+      # Transporter
+      #
+      # https://github.com/compose/transporter
+      # https://www.compose.io/articles/transporter-driving-part-one/
+  transporter:
+    image: golang:1.18.3
+    links:
+      - mongo1:mongo1
+      - mongo2:mongo2
+      - mongo3:mongo3
+      - elasticsearch:elasticsearch
+    volumes:
+      - ./transporter:/transporter
+      - ./scripts:/scripts
+    entrypoint: ["/transporter/run.sh"]
+    restart: "no"
+
+    # Make sure ES does not rellocate it's shards when it has low disk space.
+  disabledisktreshold:
+    image: mongo:3.0.6
+    links:
+      - elasticsearch:elasticsearch
+    volumes:
+      - ./scripts:/scripts
+    entrypoint: ["/scripts/disable-disk-treshold.sh"]
+
+      # Verify reading and writing
+      # Run 'docker logs -f elastic-mongo_verify_1' to see what it outputs.
+      # That works even though the container has stopped.
+      
   verify:
     image: mongo:3.0.6
     links:

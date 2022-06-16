@@ -45,6 +45,6 @@ TRANSPORTER_BIN=/go/src/github.com/compose/transporter/transporter
 
 # cd into our mounted directory where config files are
 cd /transporter
-sleep 4000
 
-$TRANSPORTER_BIN run -log.level "info" pipeline.js
+$TRANSPORTER_BIN test -log.level "info" pipeline.js
+$TRANSPORTER_BIN run  -log.level "info" pipeline.js
